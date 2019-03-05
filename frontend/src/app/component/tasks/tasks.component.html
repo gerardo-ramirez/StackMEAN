@@ -1,0 +1,70 @@
+<div class="container">
+<div class="row">
+<div class="col-md-5 mt-3 mb-5">
+  <div class="card">
+      <div class="card-header">
+          <h2>Agregar Tareas</h2>
+      </div>
+      <div class="card-body">
+          <form  #tasksForm="ngForm" (ngSubmit)="addTasks(tasksForm)">
+          
+
+          <div class="form-group">
+              <input name="title" placeholder="Debo hacer..." type="text" #title="ngModel" [(ngModel)]="tasksService.selectedtasks.title"  class="form-control">
+          </div>
+          <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="tasksService.selectedtasks._id">
+          
+          <div class="form-group">
+              <textarea name="description" col="80" placeholder="Descripción" #description="ngModel" [(ngModel)]="tasksService.selectedtasks.description" class="form-control"></textarea>
+          </div>
+          <div class="form-group">
+             <input  type="button" value='Limpiar' class="btn btn-warning m-3" (click)="resetForm(tasksForm)" >
+            <input type="submit" value='Agregar' class="btn btn-info  m-3">
+          </div>
+
+          </form>
+      </div>
+
+  </div>
+</div>
+<div class="col-md-7 col-sm-7 col-xs-5  mt-3 mb-5">
+    <div class="card see">
+        <h2>Tareas:</h2>
+      <table class="table table-bordered table-hover">
+          <thead>
+              <tr>
+               
+                  <th>Estado</th>
+                  <th>Titulo</th>
+                  <th>Descripción</th>
+                  <th>Acción</th>
+
+              </tr>
+          </thead>
+          <tbody>
+               
+                <tr *ngFor= "let task of tasksService.arrayTask">
+                <td>
+                    <input type="checkbox"  [checked]="task.status" (click)="statusTask(task._id)">
+                </td>
+                <td>{{task.title}}</td>
+                <td>{{task.description}}</td>  
+                <td>
+                   <!-- <a (click)"statusTask()" 
+                    class="btn  task[i].status ? 'btn-success' : 'btn-secondary' ">Status ok</a>-->
+                    <a (click)="editTask(task)" class="btn btn-info m-1">Actualizar</a>
+                    <a (click)="deleteTask(task._id)" class="btn btn-danger m-1">Eliminar</a>
+
+
+                </td>
+                </tr>
+
+    
+          </tbody>
+      </table>
+    </div>
+
+</div>
+
+</div>
+</div>
